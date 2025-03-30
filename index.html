@@ -3,24 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comuni Italiani - Regioni</title>
+    <title>Comuni Italiani - Esplora i Comuni d'Italia</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .intro-section {
+            background-color: #f0f8ff;
+            padding: 2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        
+        .stats-container {
+            background-color: #0066cc;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .how-to-use {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .how-to-use ol {
+            padding-left: 1.5rem;
+        }
+        
+        .how-to-use li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Comuni Italiani</h1>
-        <p>Seleziona una regione per visualizzare le province</p>
+        <p>Esplora tutti i comuni d'Italia attraverso regioni e province</p>
     </header>
     
     <main>
-        <div id="loading">Caricamento dati in corso...</div>
-        <div id="regioni-container" class="container"></div>
+        <div class="container">
+            <div class="intro-section">
+                <h2>Benvenuti nel portale dei Comuni Italiani</h2>
+                <p>Questo portale offre un accesso semplice e intuitivo a informazioni dettagliate su tutti i comuni italiani. Utilizzando dati ufficiali aggiornati, potrete esplorare l'Italia attraverso le sue regioni, province e comuni, scoprendo informazioni demografiche e territoriali.</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Navigazione Gerarchica</h3>
+                    <p>Esplora l'Italia partendo dalle regioni, passando per le province fino ad arrivare ai singoli comuni, con un'interfaccia intuitiva e facile da usare.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Dati Demografici</h3>
+                    <p>Accedi ai dati sulla popolazione di ogni comune italiano, con informazioni sul numero di abitanti aggiornate.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Informazioni Amministrative</h3>
+                    <p>Consulta codici amministrativi, codici catastali e altre informazioni utili per ogni comune d'Italia.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Notizie Locali</h3>
+                    <p>Per ogni comune, accedi facilmente alle ultime notizie locali attraverso i link diretti alle ricerche Google.</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <h2>I Numeri dell'Italia</h2>
+                <div id="stats-grid" class="stats-grid">
+                    <div class="stat-item">
+                        <p>Regioni</p>
+                        <div id="regioni-count" class="stat-number">...</div>
+                    </div>
+                    <div class="stat-item">
+                        <p>Province</p>
+                        <div id="province-count" class="stat-number">...</div>
+                    </div>
+                    <div class="stat-item">
+                        <p>Comuni</p>
+                        <div id="comuni-count" class="stat-number">...</div>
+                    </div>
+                    <div class="stat-item">
+                        <p>Popolazione Totale</p>
+                        <div id="popolazione-totale" class="stat-number">...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="how-to-use">
+                <h2>Come Utilizzare il Portale</h2>
+                <ol>
+                    <li>Seleziona una <strong>regione</strong> dall'elenco qui sotto</li>
+                    <li>Esplora le <strong>province</strong> della regione selezionata</li>
+                    <li>Visualizza i <strong>comuni</strong> della provincia scelta</li>
+                    <li>Accedi ai <strong>dettagli completi</strong> di ogni comune, inclusi dati demografici e amministrativi</li>
+                    <li>Consulta le <strong>notizie locali</strong> relative al comune di tuo interesse</li>
+                </ol>
+            </div>
+            
+            <h2>Seleziona una Regione</h2>
+            <div id="loading">Caricamento dati in corso...</div>
+            <div id="regioni-container" class="container"></div>
+        </div>
     </main>
     
     <footer>
-        <p>&copy; 2025 Comuni Italiani</p>
+        <p>&copy; 2025 Comuni Italiani - Dati aggiornati in tempo reale dal database ufficiale</p>
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        // Funzione per calcolare e visualizzare le statistiche
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCSVData().then(() => {
+                // Calcola statistiche dopo che i dati sono stati caricati
+                calculateAndDisplayStats();
+            });
+        });
+        
+        function calculateAndDisplayStats() {
+            // Conteggio regioni uniche
+            const regioniUniche = new Set(comuniData.map(comune => comune.denominazioneRegione));
+            document.getElementById('regioni-count').textContent = regioniUniche.size;
+            
+            // Conteggio province uniche
+            const provinceUniche = new Set(comuniData.map(comune => comune.provincia));
+            document.getElementById('province-count').textContent = provinceUniche.size;
+            
+            // Conteggio comuni
+            document.getElementById('comuni-count').textContent = comuniData.length;
+            
+            // Calcolo popolazione totale
+            const popolazioneTotale = comuniData.reduce((total, comune) => {
+                return total + (parseInt(comune.numeroAbitanti) || 0);
+            }, 0);
+            
+            // Formatta il numero con i separatori delle migliaia
+            document.getElementById('popolazione-totale').textContent = popolazioneTotale.toLocaleString('it-IT');
+        }
+    </script>
 </body>
 </html>
